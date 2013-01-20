@@ -1,0 +1,15 @@
+Both analog sticks X axis calibration:
+0.1+ 0.3 [0.3+ -0.1] 0 0.1
+0.1+ - full left
+0.3 - half left
+0.3+ or -0.1 - zero
+0 - half right
+0.1 - full right
+
+Left analog stick Y axis calibration:
+0.1+ 0.3 [0.3+ -0.1] 0 0.1
+0.1+ - full up
+0.3 - half up
+0.3 or -0.1 - zero
+0 - half down
+0.1 - full down
