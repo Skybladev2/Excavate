@@ -1,8 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
-public class Controls : MonoBehaviour {
-
+public class Controls : MonoBehaviour
+{
+	public GameObject rightRotationPoint = null;
+	public GameObject leftRotationPoint = null;
+	
 	// Use this for initialization
 	void Start () {
 	
@@ -18,19 +21,32 @@ public class Controls : MonoBehaviour {
 	
 	void FixedUpdate()
 	{
-			if(Input.GetAxis("HorizontalP1") > 0)
-		{			
-			this.transform.RotateAround ( new Vector3(this.transform.position.x,
-													this.transform.position.y,
-													this.transform.position.z),
-										new Vector3(0,1, 0),
-										1f);
-		}
-		
-		if(Input.GetAxis("HorizontalP1") < 0)
-		{
-			this.transform.Translate(-0.01f, 0, 0);
-		}
+		ProcessInput();
 	
+	
+	
+	}
+	
+	private void ProcessInput()
+	{
+		ProcessTracks();
+	}
+	
+	private void ProcessTracks()
+	{
+		RotateBaseByTracks("L1P1", rightRotationPoint.transform.position, 1f);
+		RotateBaseByTracks("R1P1", leftRotationPoint.transform.position, -1f);
+		RotateBaseByTracks("L2P1", rightRotationPoint.transform.position, -1f);
+		RotateBaseByTracks("R2P1", leftRotationPoint.transform.position, 1f);
+	}
+	
+	private void RotateBaseByTracks(string buttonName, Vector3 rotationPoint, float speed)
+	{
+		if(Input.GetButton(buttonName))
+		{
+			this.transform.RotateAround ( rotationPoint,
+										new Vector3(0, 1, 0),
+										speed);
+		}
 	}
 }
