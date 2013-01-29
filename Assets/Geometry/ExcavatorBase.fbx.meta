@@ -33,6 +33,12 @@ ModelImporter:
     4300006: ID31
     4300008: ID37
     4300010: ID45
+    6400000: //RootNode
+    6400002: ID15
+    6400004: ID23
+    6400006: ID31
+    6400008: ID37
+    6400010: ID45
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -52,7 +58,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: .02540005
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
