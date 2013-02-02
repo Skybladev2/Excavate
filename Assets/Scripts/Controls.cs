@@ -5,10 +5,16 @@ public class Controls : MonoBehaviour
 {
 	public GameObject rightRotationPoint = null;
 	public GameObject leftRotationPoint = null;
+	public GameObject boomToCabinJoint = null;
+	
+	private Transform cabin = null;
+	private Transform boom = null;
 	
 	// Use this for initialization
-	void Start () {
-	
+	void Start ()
+	{
+	 	this.cabin = transform.FindChild("ExcavatorCabinRoot");	
+		this.boom = cabin.FindChild("ExcavatorBoomRoot");	
 	}
 	
 	// Update is called once per frame
@@ -31,6 +37,7 @@ public class Controls : MonoBehaviour
 	{
 		ProcessTracks();
 		ProcessCabin();
+		ProcessBoom();
 	}
 	
 	private void ProcessTracks()
@@ -43,9 +50,12 @@ public class Controls : MonoBehaviour
 	
 	private void ProcessCabin()
 	{
-		Transform cabin = transform.FindChild("ExcavatorCabinRoot");
-		
-		RotateCabin("HorizontalP1", cabin, 0.01f);		
+		RotateCabin("HorizontalP1", 0.01f);		
+	}
+	
+	private void ProcessBoom()
+	{
+		RotateBoom("VerticalP1", 0.01f);		
 	}
 	
 	private void RotateBaseByTracks(string buttonName, Vector3 rotationPoint, float speed)
@@ -58,9 +68,15 @@ public class Controls : MonoBehaviour
 		}
 	}
 	
-	private void RotateCabin(string buttonName, Transform cabin, float speed)
+	private void RotateCabin(string buttonName, float speed)
 	{
 		cabin.transform.RotateAroundLocal(new Vector3(0, 1, 0),
 											Input.GetAxis(buttonName) * speed);
+	}
+	
+	private void RotateBoom(string buttonName, float speed)
+	{
+		boom.transform.RotateAroundLocal(new Vector3(1, 0, 0),
+										Input.GetAxis(buttonName) * speed);													
 	}
 }
