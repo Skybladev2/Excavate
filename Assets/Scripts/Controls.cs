@@ -30,6 +30,7 @@ public class Controls : MonoBehaviour
 	private void ProcessInput()
 	{
 		ProcessTracks();
+		ProcessCabin();
 	}
 	
 	private void ProcessTracks()
@@ -40,6 +41,13 @@ public class Controls : MonoBehaviour
 		RotateBaseByTracks("R2P1", leftRotationPoint.transform.position, 1f);
 	}
 	
+	private void ProcessCabin()
+	{
+		Transform cabin = transform.FindChild("ExcavatorCabinRoot");
+		
+		RotateCabin("HorizontalP1", cabin, 0.01f);		
+	}
+	
 	private void RotateBaseByTracks(string buttonName, Vector3 rotationPoint, float speed)
 	{
 		if(Input.GetButton(buttonName))
@@ -48,5 +56,11 @@ public class Controls : MonoBehaviour
 										new Vector3(0, 1, 0),
 										speed);
 		}
+	}
+	
+	private void RotateCabin(string buttonName, Transform cabin, float speed)
+	{
+		cabin.transform.RotateAroundLocal(new Vector3(0, 1, 0),
+											Input.GetAxis(buttonName) * speed);
 	}
 }
