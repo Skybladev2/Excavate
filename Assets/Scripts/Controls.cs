@@ -76,7 +76,15 @@ public class Controls : MonoBehaviour
 	
 	private void RotateBoom(string buttonName, float speed)
 	{
-		boom.transform.RotateAroundLocal(new Vector3(1, 0, 0),
-										Input.GetAxis(buttonName) * speed);													
+		float  axisValue = Input.GetAxis(buttonName) * speed;
+		
+		if( (axisValue> 0 && (boom.transform.localEulerAngles.z < 55 || boom.transform.localEulerAngles.z > 290))
+			||
+			(axisValue < 0 && (boom.transform.localEulerAngles.z < 50 || boom.transform.localEulerAngles.z > 285)))
+		{
+			
+			boom.transform.RotateAroundLocal(new Vector3(1, 0, 0),
+										Input.GetAxis(buttonName) * speed);
+		}
 	}
 }
