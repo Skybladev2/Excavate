@@ -9,12 +9,14 @@ public class Controls : MonoBehaviour
 	
 	private Transform cabin = null;
 	private Transform boom = null;
+	private Transform hilt = null;
 	
 	// Use this for initialization
 	void Start ()
 	{
 	 	this.cabin = transform.FindChild("ExcavatorCabinRoot");	
 		this.boom = cabin.FindChild("ExcavatorBoomRoot");	
+		this.hilt = boom.FindChild("ExcavatorHiltRoot");	
 	}
 	
 	// Update is called once per frame
@@ -38,6 +40,7 @@ public class Controls : MonoBehaviour
 		ProcessTracks();
 		ProcessCabin();
 		ProcessBoom();
+		ProcessHilt();
 	}
 	
 	private void ProcessTracks()
@@ -55,7 +58,13 @@ public class Controls : MonoBehaviour
 	
 	private void ProcessBoom()
 	{
-		RotateBoom("VerticalP1", 0.01f);		
+		RotateBoom("CrossP1", 0.01f);
+		RotateBoom("TriangleP1", -0.01f);
+	}
+	
+	private void ProcessHilt()
+	{
+		RotateHilt("VerticalP1", -0.01f);
 	}
 	
 	private void RotateBaseByTracks(string buttonName, Vector3 rotationPoint, float speed)
@@ -76,7 +85,7 @@ public class Controls : MonoBehaviour
 	
 	private void RotateBoom(string buttonName, float speed)
 	{
-		float  axisValue = Input.GetAxis(buttonName) * speed;
+		float  axisValue = (Input.GetButton(buttonName) ? 1 : 0) * speed;
 		
 		if( (axisValue> 0 && (boom.transform.localEulerAngles.z < 55 || boom.transform.localEulerAngles.z > 290))
 			||
@@ -84,6 +93,22 @@ public class Controls : MonoBehaviour
 		{
 			
 			boom.transform.RotateAroundLocal(new Vector3(1, 0, 0),
+										Input.GetAxis(buttonName) * speed);
+		}
+	}
+	
+	private void RotateHilt(string buttonName, float speed)
+	{
+		Debug.Log( hilt.transform.localEulerAngles);
+		
+		float axisValue = Input.GetAxis(buttonName) * speed;
+		
+		if( (axisValue < 0 && (hilt.transform.localEulerAngles.z < 55 || hilt.transform.localEulerAngles.z > 290))
+			||
+			(axisValue > 0 && (hilt.transform.localEulerAngles.z < 50 || hilt.transform.localEulerAngles.z > 285)))
+		{
+			
+			hilt.transform.RotateAroundLocal(new Vector3(0, 0, 1),
 										Input.GetAxis(buttonName) * speed);
 		}
 	}
